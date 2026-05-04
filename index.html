@@ -4,16 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="AnotherBOT — Leader de la transformation digitale. RPA, Intelligence Artificielle, Cloud et Solutions Digitales sur mesure pour un monde performant." />
-  <meta name="keywords" content="RPA, automatisation, intelligence artificielle, cloud, transformation digitale, AnotherBOT" />
   <meta property="og:title" content="AnotherBOT — Humans for the Future" />
   <meta property="og:description" content="Leader de la transformation digitale. RPA · IA · Cloud · Digital" />
   <meta property="og:image" content="https://another-bot.com/images/logoV4.png" />
   <title>AnotherBOT — Humans for the Future</title>
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css" />
@@ -21,28 +25,54 @@
 <body>
 
   <!-- ============================================================
+       PRELOADER
+  ============================================================ -->
+  <div id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-logo">
+        <span class="pl-another">Another</span><span class="pl-bot">BOT</span>
+      </div>
+      <div class="preloader-bar-wrap">
+        <div class="preloader-bar"></div>
+      </div>
+      <div class="preloader-count"><span id="loader-num">0</span>%</div>
+    </div>
+    <div class="preloader-grid"></div>
+  </div>
+
+  <!-- ============================================================
+       CUSTOM CURSOR
+  ============================================================ -->
+  <div id="cursor"></div>
+  <div id="cursor-follower"></div>
+  <div id="cursor-text"></div>
+
+  <!-- ============================================================
        NAVIGATION
   ============================================================ -->
-  <nav class="navbar" role="navigation" aria-label="Navigation principale">
-    <div class="container">
-      <a href="#home" class="nav-logo" aria-label="AnotherBOT — Accueil">
-        <img src="https://another-bot.com/images/logoV4.png" alt="AnotherBOT Logo" onerror="this.style.display='none'" />
-        <span class="nav-logo-text">Another<span>BOT</span></span>
+  <nav class="navbar" id="navbar" role="navigation">
+    <div class="container nav-inner">
+      <a href="#home" class="nav-logo">
+        <img src="https://another-bot.com/images/logoV4.png" alt="AnotherBOT" onerror="this.style.display='none'" />
+        <span>Another<em>BOT</em></span>
       </a>
 
-      <ul class="nav-links" role="list">
-        <li><a href="#home">Accueil</a></li>
-        <li><a href="#about">À propos</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#markets">Marchés</a></li>
-        <li><a href="#team">Équipe</a></li>
-        <li><a href="#contact" class="nav-cta">Nous contacter</a></li>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-link">Accueil</a></li>
+        <li><a href="#about" class="nav-link">À propos</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#markets" class="nav-link">Marchés</a></li>
+        <li><a href="#team" class="nav-link">Équipe</a></li>
+        <li>
+          <a href="#contact" class="nav-link nav-cta magnetic-btn">
+            <span>Nous contacter</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </li>
       </ul>
 
-      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
@@ -51,88 +81,330 @@
        HERO
   ============================================================ -->
   <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="grid-bg"></div>
-    <div class="hero-particles"></div>
+    <canvas id="neural-canvas"></canvas>
+    <div class="hero-grid-overlay"></div>
 
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-text">
-          <div class="eyebrow">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="6"/></svg>
-            Demain c'est aujourd'hui
-          </div>
-          <h1 class="hero-title">
-            <em>Humans</em><br />for the<br />Future
-          </h1>
-          <p class="hero-subtitle">
-            La révolution numérique commence maintenant. AnotherBOT propulse votre entreprise vers l'excellence grâce à l'IA, l'automatisation et le Cloud.
-          </p>
-          <div class="hero-actions">
-            <a href="#contact" class="btn btn-primary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              Démarrer votre projet
-            </a>
-            <a href="#services" class="btn btn-outline">
-              Découvrir nos solutions
-            </a>
-          </div>
+    <div class="container hero-layout">
 
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <div class="num" data-count="4" data-suffix="+" id="stat-markets">0+</div>
-              <div class="label">Marchés internationaux</div>
-            </div>
-            <div class="hero-stat">
-              <div class="num" data-count="24" data-suffix="/7" id="stat-ops">0/7</div>
-              <div class="label">Robots opérationnels</div>
-            </div>
-            <div class="hero-stat">
-              <div class="num" data-count="100" data-suffix="%" id="stat-digital">0%</div>
-              <div class="label">Digital & Agile</div>
-            </div>
-          </div>
+      <!-- Left: Text -->
+      <div class="hero-text" id="hero-text">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>Demain c'est aujourd'hui</span>
         </div>
 
-        <div class="hero-visual">
-          <div class="hero-orb">
-            <div class="orb-core"></div>
-            <div class="orb-ring"></div>
-            <div class="orb-ring"></div>
+        <h1 class="hero-title">
+          <span class="split-line"><em class="gradient-text" id="word-humans">Humans</em></span>
+          <span class="split-line">for the</span>
+          <span class="split-line">Future</span>
+        </h1>
 
-            <div class="tech-cards">
-              <div class="tech-card">
-                <span class="icon">🤖</span>
-                <div>
-                  <div style="font-size:0.7rem;color:var(--text-muted)">Automation</div>
-                  <div>RPA Active</div>
-                </div>
-              </div>
-              <div class="tech-card">
-                <span class="icon">☁️</span>
-                <div>
-                  <div style="font-size:0.7rem;color:var(--text-muted)">Infrastructure</div>
-                  <div>Cloud Ready</div>
-                </div>
-              </div>
-              <div class="tech-card">
-                <span class="icon">🧠</span>
-                <div>
-                  <div style="font-size:0.7rem;color:var(--text-muted)">AI Engine</div>
-                  <div>Décisionnel IA</div>
-                </div>
-              </div>
-              <div class="tech-card">
-                <span class="icon">📈</span>
-                <div>
-                  <div style="font-size:0.7rem;color:var(--text-muted)">Performance</div>
-                  <div>+340% ROI</div>
-                </div>
-              </div>
-            </div>
+        <p class="hero-sub" id="hero-sub">
+          La révolution numérique commence maintenant. AnotherBOT propulse votre entreprise vers l'excellence grâce à l'IA, l'automatisation et le Cloud.
+        </p>
+
+        <div class="hero-ctas" id="hero-ctas">
+          <a href="#contact" class="btn btn-primary magnetic-btn">
+            <span>Démarrer votre projet</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#services" class="btn btn-ghost magnetic-btn">
+            <span>Nos solutions</span>
+          </a>
+        </div>
+
+        <div class="hero-stats" id="hero-stats">
+          <div class="hero-stat">
+            <div class="stat-val" data-count="4" data-suffix="+">0+</div>
+            <div class="stat-lbl">Marchés</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="hero-stat">
+            <div class="stat-val" data-count="24" data-suffix="/7">0/7</div>
+            <div class="stat-lbl">Robots actifs</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="hero-stat">
+            <div class="stat-val" data-count="340" data-suffix="%">0%</div>
+            <div class="stat-lbl">ROI moyen</div>
           </div>
         </div>
       </div>
+
+      <!-- Center: Robot -->
+      <div class="hero-robot-wrap" id="hero-robot-wrap">
+        <!-- Glow halo behind robot -->
+        <div class="robot-halo"></div>
+        <div class="robot-halo-2"></div>
+
+        <!-- THE ROBOT SVG -->
+        <svg class="hero-robot" id="hero-robot" viewBox="0 0 380 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#00d4ff" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#0057ff" stop-opacity="0.2"/>
+            </radialGradient>
+            <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.95"/>
+              <stop offset="40%" stop-color="#0099dd" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#0057ff" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="bodyGrad" cx="30%" cy="20%" r="80%">
+              <stop offset="0%" stop-color="#0d1230"/>
+              <stop offset="100%" stop-color="#05050f"/>
+            </radialGradient>
+            <linearGradient id="holoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0057ff" stop-opacity="0.15"/>
+              <stop offset="50%" stop-color="#00d4ff" stop-opacity="0.05"/>
+              <stop offset="100%" stop-color="#0057ff" stop-opacity="0.15"/>
+            </linearGradient>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="strongGlow" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="7" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="12" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <pattern id="scanlines" x="0" y="0" width="380" height="3" patternUnits="userSpaceOnUse">
+              <rect width="380" height="0.8" y="0" fill="rgba(0,212,255,0.04)"/>
+            </pattern>
+            <clipPath id="headClip"><rect x="105" y="52" width="170" height="145" rx="24"/></clipPath>
+            <clipPath id="bodyClip"><rect x="90" y="205" width="200" height="185" rx="28"/></clipPath>
+          </defs>
+
+          <!-- SHADOW GROUND -->
+          <ellipse cx="190" cy="496" rx="100" ry="6" fill="rgba(0,212,255,0.06)" filter="url(#softGlow)"/>
+
+          <!-- CIRCUIT DECORATIONS -->
+          <g class="circuits" opacity="0.25" stroke="#00d4ff" stroke-width="1" fill="none">
+            <path d="M55,235 L25,235 L25,320 L48,320" stroke-dasharray="4,3"/>
+            <circle cx="48" cy="320" r="3" fill="#00d4ff" stroke="none"/>
+            <path d="M25,277 L8,277" stroke-dasharray="3,3"/>
+            <circle cx="8" cy="277" r="2" fill="#0057ff" stroke="none"/>
+            <path d="M325,235 L355,235 L355,320 L332,320" stroke-dasharray="4,3"/>
+            <circle cx="332" cy="320" r="3" fill="#00d4ff" stroke="none"/>
+            <path d="M355,277 L372,277" stroke-dasharray="3,3"/>
+            <circle cx="372" cy="277" r="2" fill="#0057ff" stroke="none"/>
+            <path d="M155,465 L155,480 L225,480 L225,465" stroke-dasharray="4,3"/>
+            <path d="M120,120 L100,120 L100,80 L105,80" stroke-dasharray="3,3" opacity="0.5"/>
+            <path d="M260,120 L280,120 L280,80 L275,80" stroke-dasharray="3,3" opacity="0.5"/>
+          </g>
+
+          <!-- LEFT ARM -->
+          <g class="robot-arm-left" id="arm-left">
+            <rect x="42" y="218" width="50" height="115" rx="19" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.28)" stroke-width="1.5"/>
+            <ellipse cx="67" cy="218" rx="20" ry="13" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.35)" stroke-width="1.5"/>
+            <rect x="50" y="248" width="34" height="2.5" rx="1.25" fill="rgba(0,212,255,0.35)"/>
+            <rect x="50" y="258" width="22" height="2.5" rx="1.25" fill="rgba(0,212,255,0.2)"/>
+            <rect x="50" y="268" width="28" height="2.5" rx="1.25" fill="rgba(0,212,255,0.15)"/>
+            <!-- Hand -->
+            <ellipse cx="67" cy="348" rx="23" ry="19" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.35)" stroke-width="1.5"/>
+            <circle class="hand-glow" cx="67" cy="348" r="10" fill="rgba(0,87,255,0.35)" filter="url(#glow)"/>
+            <circle cx="67" cy="348" r="5" fill="#0057ff" opacity="0.85" filter="url(#glow)"/>
+          </g>
+
+          <!-- RIGHT ARM -->
+          <g class="robot-arm-right" id="arm-right">
+            <rect x="288" y="218" width="50" height="115" rx="19" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.28)" stroke-width="1.5"/>
+            <ellipse cx="313" cy="218" rx="20" ry="13" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.35)" stroke-width="1.5"/>
+            <rect x="296" y="248" width="34" height="2.5" rx="1.25" fill="rgba(0,212,255,0.35)"/>
+            <rect x="308" y="258" width="22" height="2.5" rx="1.25" fill="rgba(0,212,255,0.2)"/>
+            <rect x="302" y="268" width="28" height="2.5" rx="1.25" fill="rgba(0,212,255,0.15)"/>
+            <!-- Hand -->
+            <ellipse cx="313" cy="348" rx="23" ry="19" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.35)" stroke-width="1.5"/>
+            <circle class="hand-glow" cx="313" cy="348" r="10" fill="rgba(0,212,255,0.35)" filter="url(#glow)"/>
+            <circle cx="313" cy="348" r="5" fill="#00d4ff" opacity="0.85" filter="url(#glow)"/>
+          </g>
+
+          <!-- BODY / TORSO -->
+          <g class="robot-body" id="robot-torso">
+            <rect x="90" y="205" width="200" height="185" rx="28" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.22)" stroke-width="1.5"/>
+            <!-- Panel -->
+            <rect x="108" y="225" width="164" height="116" rx="16" fill="rgba(0,12,40,0.6)" stroke="rgba(0,212,255,0.12)" stroke-width="1"/>
+            <!-- Panel fill / holographic overlay -->
+            <rect x="108" y="225" width="164" height="116" rx="16" fill="url(#holoGrad)"/>
+
+            <!-- POWER CORE SYSTEM -->
+            <!-- Outer ring animated -->
+            <circle id="core-ring-outer" cx="190" cy="278" r="44" fill="none" stroke="rgba(0,87,255,0.25)" stroke-width="1.5" stroke-dasharray="10,5"/>
+            <!-- Mid ring -->
+            <circle id="core-ring-mid" cx="190" cy="278" r="33" fill="rgba(0,87,255,0.06)" stroke="rgba(0,212,255,0.3)" stroke-width="1" stroke-dasharray="6,4"/>
+            <!-- Inner glow -->
+            <circle id="core-glow" cx="190" cy="278" r="23" fill="url(#coreGlow)" filter="url(#strongGlow)"/>
+            <circle cx="190" cy="278" r="14" fill="rgba(0,212,255,0.12)"/>
+            <!-- Core dot -->
+            <circle id="core-dot" cx="190" cy="278" r="7" fill="#00d4ff" filter="url(#strongGlow)" opacity="0.95"/>
+            <!-- Core pulse rings -->
+            <circle class="core-pulse" cx="190" cy="278" r="23" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0"/>
+            <circle class="core-pulse delay-1" cx="190" cy="278" r="23" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0"/>
+
+            <!-- Side LED strips -->
+            <rect x="91" y="265" width="5" height="35" rx="2.5" fill="rgba(0,212,255,0.55)" filter="url(#glow)"/>
+            <rect x="284" y="265" width="5" height="35" rx="2.5" fill="rgba(0,212,255,0.55)" filter="url(#glow)"/>
+
+            <!-- Corner accents -->
+            <path d="M108,225 L124,225 M108,225 L108,241" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+            <path d="M272,225 L256,225 M272,225 L272,241" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+            <path d="M108,341 L124,341 M108,341 L108,325" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+            <path d="M272,341 L256,341 M272,341 L272,325" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+
+            <!-- Scanline overlay on body -->
+            <rect x="90" y="205" width="200" height="185" rx="28" fill="url(#scanlines)" opacity="0.6"/>
+
+            <!-- Bottom separation bar -->
+            <rect x="130" y="357" width="120" height="1.5" rx="0.75" fill="rgba(0,212,255,0.2)"/>
+          </g>
+
+          <!-- NECK -->
+          <g class="robot-neck">
+            <rect x="168" y="190" width="44" height="20" rx="8" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
+            <rect x="173" y="194" width="5" height="12" rx="2" fill="rgba(0,212,255,0.25)"/>
+            <rect x="181" y="194" width="5" height="12" rx="2" fill="rgba(0,87,255,0.25)"/>
+            <rect x="189" y="194" width="5" height="12" rx="2" fill="rgba(0,212,255,0.25)"/>
+            <rect x="197" y="194" width="5" height="12" rx="2" fill="rgba(0,87,255,0.25)"/>
+          </g>
+
+          <!-- HEAD -->
+          <g class="robot-head" id="robot-head">
+            <!-- Main head shape -->
+            <rect x="105" y="52" width="170" height="145" rx="24" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.22)" stroke-width="1.5"/>
+            <!-- Top ridge detail -->
+            <rect x="133" y="52" width="114" height="7" rx="3.5" fill="rgba(0,212,255,0.08)" stroke="rgba(0,212,255,0.18)" stroke-width="1"/>
+            <!-- Visor faceplate -->
+            <rect x="116" y="73" width="148" height="94" rx="16" fill="rgba(0,0,0,0.45)" stroke="rgba(0,212,255,0.12)" stroke-width="1"/>
+
+            <!-- EYE SOCKETS -->
+            <ellipse cx="156" cy="113" rx="29" ry="25" fill="rgba(0,0,0,0.7)" stroke="rgba(0,212,255,0.3)" stroke-width="1.5"/>
+            <ellipse cx="224" cy="113" rx="29" ry="25" fill="rgba(0,0,0,0.7)" stroke="rgba(0,212,255,0.3)" stroke-width="1.5"/>
+
+            <!-- EYE GLOW RINGS -->
+            <ellipse class="eye-ring" cx="156" cy="113" rx="24" ry="20" fill="none" stroke="rgba(0,212,255,0.4)" stroke-width="1"/>
+            <ellipse class="eye-ring" cx="224" cy="113" rx="24" ry="20" fill="none" stroke="rgba(0,212,255,0.4)" stroke-width="1"/>
+
+            <!-- EYE FILL -->
+            <ellipse class="robot-eye-fill" cx="156" cy="113" rx="20" ry="17" fill="url(#eyeGlow)" filter="url(#glow)"/>
+            <ellipse class="robot-eye-fill" cx="224" cy="113" rx="20" ry="17" fill="url(#eyeGlow)" filter="url(#glow)"/>
+
+            <!-- LEFT PUPIL GROUP -->
+            <g class="pupil-group" id="left-pupil-group">
+              <circle cx="156" cy="113" r="10" fill="#00d4ff" filter="url(#strongGlow)" opacity="0.9"/>
+              <circle cx="156" cy="113" r="5" fill="#ffffff" opacity="0.85"/>
+              <circle cx="152" cy="109" r="2" fill="rgba(255,255,255,0.5)"/>
+            </g>
+
+            <!-- RIGHT PUPIL GROUP -->
+            <g class="pupil-group" id="right-pupil-group">
+              <circle cx="224" cy="113" r="10" fill="#00d4ff" filter="url(#strongGlow)" opacity="0.9"/>
+              <circle cx="224" cy="113" r="5" fill="#ffffff" opacity="0.85"/>
+              <circle cx="220" cy="109" r="2" fill="rgba(255,255,255,0.5)"/>
+            </g>
+
+            <!-- NOSE LED -->
+            <circle cx="190" cy="138" r="3.5" fill="rgba(0,212,255,0.6)" filter="url(#glow)"/>
+
+            <!-- MOUTH SPEAKER -->
+            <rect x="143" y="152" width="94" height="18" rx="9" fill="rgba(0,0,0,0.55)" stroke="rgba(0,212,255,0.18)" stroke-width="1"/>
+            <g id="mouth-dots" fill="rgba(0,212,255,0.45)">
+              <circle cx="155" cy="161" r="2.2"/>
+              <circle cx="163" cy="161" r="2.2"/>
+              <circle cx="171" cy="161" r="2.2"/>
+              <circle cx="179" cy="161" r="2.2"/>
+              <circle cx="187" cy="161" r="2.8" fill="rgba(0,212,255,0.7)" filter="url(#glow)"/>
+              <circle cx="195" cy="161" r="2.8" fill="rgba(0,212,255,0.7)" filter="url(#glow)"/>
+              <circle cx="203" cy="161" r="2.2"/>
+              <circle cx="211" cy="161" r="2.2"/>
+              <circle cx="219" cy="161" r="2.2"/>
+              <circle cx="227" cy="161" r="2.2"/>
+            </g>
+
+            <!-- HEAD CORNER ACCENTS -->
+            <path d="M105,52 L120,52 M105,52 L105,67" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+            <path d="M275,52 L260,52 M275,52 L275,67" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+            <path d="M105,197 L120,197 M105,197 L105,182" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+            <path d="M275,197 L260,197 M275,197 L275,182" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+
+            <!-- SIDE PANEL LEDS -->
+            <rect x="105" y="78" width="4" height="22" rx="2" fill="rgba(0,212,255,0.55)" filter="url(#glow)"/>
+            <rect x="271" y="78" width="4" height="22" rx="2" fill="rgba(0,212,255,0.55)" filter="url(#glow)"/>
+
+            <!-- SCANLINES on head -->
+            <rect x="105" y="52" width="170" height="145" rx="24" fill="url(#scanlines)" clip-path="url(#headClip)" opacity="0.4"/>
+          </g>
+
+          <!-- ANTENNA -->
+          <g class="robot-antenna" id="robot-antenna">
+            <line x1="190" y1="52" x2="190" y2="18" stroke="rgba(0,212,255,0.45)" stroke-width="2"/>
+            <circle cx="190" cy="13" r="8" fill="rgba(0,87,255,0.25)" stroke="rgba(0,212,255,0.6)" stroke-width="1.5"/>
+            <circle id="antenna-ball" cx="190" cy="13" r="4.5" fill="#00d4ff" filter="url(#strongGlow)"/>
+          </g>
+
+          <!-- LEGS -->
+          <g class="robot-legs">
+            <!-- Left leg -->
+            <rect x="123" y="388" width="58" height="90" rx="17" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.22)" stroke-width="1.5"/>
+            <rect x="131" y="418" width="42" height="2.5" rx="1.25" fill="rgba(0,212,255,0.3)"/>
+            <!-- Left foot -->
+            <rect x="110" y="463" width="82" height="24" rx="12" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.28)" stroke-width="1.5"/>
+            <rect x="117" y="478" width="68" height="2" rx="1" fill="rgba(0,212,255,0.15)"/>
+
+            <!-- Right leg -->
+            <rect x="199" y="388" width="58" height="90" rx="17" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.22)" stroke-width="1.5"/>
+            <rect x="207" y="418" width="42" height="2.5" rx="1.25" fill="rgba(0,212,255,0.3)"/>
+            <!-- Right foot -->
+            <rect x="188" y="463" width="82" height="24" rx="12" fill="url(#bodyGrad)" stroke="rgba(0,212,255,0.28)" stroke-width="1.5"/>
+            <rect x="195" y="478" width="68" height="2" rx="1" fill="rgba(0,212,255,0.15)"/>
+          </g>
+        </svg>
+
+        <!-- FLOATING HOLOGRAPHIC CARDS -->
+        <div class="holo-card holo-card-1" id="hcard-1">
+          <div class="hc-icon">⚙️</div>
+          <div class="hc-info">
+            <span class="hc-label">Automation</span>
+            <span class="hc-value">RPA Active</span>
+          </div>
+          <div class="hc-dot"></div>
+        </div>
+        <div class="holo-card holo-card-2" id="hcard-2">
+          <div class="hc-icon">🧠</div>
+          <div class="hc-info">
+            <span class="hc-label">AI Engine</span>
+            <span class="hc-value">Décisionnel</span>
+          </div>
+          <div class="hc-dot"></div>
+        </div>
+        <div class="holo-card holo-card-3" id="hcard-3">
+          <div class="hc-icon">📈</div>
+          <div class="hc-info">
+            <span class="hc-label">Performance</span>
+            <span class="hc-value">+340% ROI</span>
+          </div>
+          <div class="hc-dot"></div>
+        </div>
+        <div class="holo-card holo-card-4" id="hcard-4">
+          <div class="hc-icon">☁️</div>
+          <div class="hc-info">
+            <span class="hc-label">Infrastructure</span>
+            <span class="hc-value">Cloud Ready</span>
+          </div>
+          <div class="hc-dot"></div>
+        </div>
+
+        <!-- ORBIT RINGS -->
+        <div class="orbit-ring orbit-1"></div>
+        <div class="orbit-ring orbit-2"></div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-hint" id="scroll-hint">
+      <div class="scroll-hint-line"></div>
+      <span>Scroll</span>
     </div>
   </section>
 
@@ -140,127 +412,107 @@
        MARQUEE
   ============================================================ -->
   <div class="marquee-section">
+    <div class="marquee-fade-left"></div>
+    <div class="marquee-fade-right"></div>
     <p class="marquee-label">Technologies & Expertises</p>
-    <div class="marquee-track">
-      <!-- Duplicated for seamless loop -->
-      <div class="marquee-item"><span class="icon">⚙️</span> UiPath</div>
-      <div class="marquee-item"><span class="icon">🤖</span> Automation Anywhere</div>
-      <div class="marquee-item"><span class="icon">☁️</span> Microsoft Azure</div>
-      <div class="marquee-item"><span class="icon">🌐</span> AWS</div>
-      <div class="marquee-item"><span class="icon">🧠</span> OpenAI</div>
-      <div class="marquee-item"><span class="icon">📊</span> Power BI</div>
-      <div class="marquee-item"><span class="icon">☁️</span> Google Cloud</div>
-      <div class="marquee-item"><span class="icon">⚡</span> SAP</div>
-      <div class="marquee-item"><span class="icon">🔗</span> Blue Prism</div>
-      <div class="marquee-item"><span class="icon">📱</span> Power Platform</div>
-      <div class="marquee-item"><span class="icon">⚙️</span> UiPath</div>
-      <div class="marquee-item"><span class="icon">🤖</span> Automation Anywhere</div>
-      <div class="marquee-item"><span class="icon">☁️</span> Microsoft Azure</div>
-      <div class="marquee-item"><span class="icon">🌐</span> AWS</div>
-      <div class="marquee-item"><span class="icon">🧠</span> OpenAI</div>
-      <div class="marquee-item"><span class="icon">📊</span> Power BI</div>
-      <div class="marquee-item"><span class="icon">☁️</span> Google Cloud</div>
-      <div class="marquee-item"><span class="icon">⚡</span> SAP</div>
-      <div class="marquee-item"><span class="icon">🔗</span> Blue Prism</div>
-      <div class="marquee-item"><span class="icon">📱</span> Power Platform</div>
+    <div class="marquee-wrap">
+      <div class="marquee-track" id="marquee-track">
+        <div class="marquee-item"><span>⚙️</span> UiPath</div>
+        <div class="marquee-item"><span>🤖</span> Automation Anywhere</div>
+        <div class="marquee-item"><span>☁️</span> Microsoft Azure</div>
+        <div class="marquee-item"><span>🌐</span> AWS</div>
+        <div class="marquee-item"><span>🧠</span> OpenAI</div>
+        <div class="marquee-item"><span>📊</span> Power BI</div>
+        <div class="marquee-item"><span>☁️</span> Google Cloud</div>
+        <div class="marquee-item"><span>⚡</span> SAP</div>
+        <div class="marquee-item"><span>🔗</span> Blue Prism</div>
+        <div class="marquee-item"><span>📱</span> Power Platform</div>
+        <div class="marquee-item"><span>⚙️</span> UiPath</div>
+        <div class="marquee-item"><span>🤖</span> Automation Anywhere</div>
+        <div class="marquee-item"><span>☁️</span> Microsoft Azure</div>
+        <div class="marquee-item"><span>🌐</span> AWS</div>
+        <div class="marquee-item"><span>🧠</span> OpenAI</div>
+        <div class="marquee-item"><span>📊</span> Power BI</div>
+        <div class="marquee-item"><span>☁️</span> Google Cloud</div>
+        <div class="marquee-item"><span>⚡</span> SAP</div>
+        <div class="marquee-item"><span>🔗</span> Blue Prism</div>
+        <div class="marquee-item"><span>📱</span> Power Platform</div>
+      </div>
     </div>
   </div>
 
   <!-- ============================================================
        ABOUT
   ============================================================ -->
-  <section class="about" id="about">
-    <div class="container">
-      <div class="about-grid">
+  <section class="about gsap-section" id="about">
+    <div class="section-line-top"></div>
+    <div class="container about-grid">
 
-        <div class="about-visual reveal">
-          <div class="about-pattern">
-            <div class="pattern-node">
-              <span class="node-icon">☁️</span>
-              <span class="node-label">Cloud</span>
+      <div class="about-visual gsap-reveal">
+        <div class="about-nodes-wrap">
+          <div class="node-grid">
+            <div class="node-item tilt-card">
+              <span class="ni-icon">☁️</span>
+              <span class="ni-label">Cloud</span>
             </div>
-            <div class="pattern-node">
-              <span class="node-icon">🤖</span>
-              <span class="node-label">RPA</span>
+            <div class="node-item tilt-card">
+              <span class="ni-icon">🤖</span>
+              <span class="ni-label">RPA</span>
             </div>
-            <div class="pattern-node">
-              <span class="node-icon">🧠</span>
-              <span class="node-label">IA</span>
+            <div class="node-item tilt-card">
+              <span class="ni-icon">🧠</span>
+              <span class="ni-label">IA</span>
             </div>
-            <div class="pattern-node">
-              <span class="node-icon">💻</span>
-              <span class="node-label">Digital</span>
+            <div class="node-item tilt-card">
+              <span class="ni-icon">💻</span>
+              <span class="ni-label">Digital</span>
             </div>
-            <div class="pattern-node" style="background:linear-gradient(135deg,rgba(0,87,255,0.15),rgba(0,212,255,0.08));border-color:var(--accent-border);">
-              <span class="node-icon">🎯</span>
-              <span class="node-label" style="color:var(--accent-cyan)">Vision</span>
+            <div class="node-item node-center tilt-card">
+              <span class="ni-icon">🎯</span>
+              <span class="ni-label">Vision</span>
             </div>
-            <div class="pattern-node">
-              <span class="node-icon">📈</span>
-              <span class="node-label">ROI</span>
+            <div class="node-item tilt-card">
+              <span class="ni-icon">📈</span>
+              <span class="ni-label">ROI</span>
             </div>
-            <div class="pattern-node">
-              <span class="node-icon">🌍</span>
-              <span class="node-label">Marchés</span>
+            <div class="node-item tilt-card">
+              <span class="ni-icon">🌍</span>
+              <span class="ni-label">Marchés</span>
             </div>
-            <div class="pattern-node">
-              <span class="node-icon">🔒</span>
-              <span class="node-label">Sécurité</span>
+            <div class="node-item tilt-card">
+              <span class="ni-icon">🔒</span>
+              <span class="ni-label">Sécurité</span>
             </div>
-            <div class="pattern-node">
-              <span class="node-icon">⚡</span>
-              <span class="node-label">Agilité</span>
+            <div class="node-item tilt-card">
+              <span class="ni-icon">⚡</span>
+              <span class="ni-label">Agilité</span>
             </div>
           </div>
 
-          <div class="about-float-card">
-            <p class="title">Présence internationale</p>
-            <div class="country-flags">
-              <div class="flag-item">
-                <span>🇫🇷</span>
-                <span class="country-name">France</span>
-              </div>
-              <div class="flag-item">
-                <span>🇨🇦</span>
-                <span class="country-name">Canada</span>
-              </div>
-              <div class="flag-item">
-                <span>🇺🇸</span>
-                <span class="country-name">USA</span>
-              </div>
-              <div class="flag-item">
-                <span>🌍</span>
-                <span class="country-name">Afrique</span>
-              </div>
+          <div class="about-presence-card gsap-reveal">
+            <p class="apc-title">Présence internationale</p>
+            <div class="flags-row">
+              <div class="flag-chip"><span>🇫🇷</span><span>France</span></div>
+              <div class="flag-chip"><span>🇨🇦</span><span>Canada</span></div>
+              <div class="flag-chip"><span>🇺🇸</span><span>USA</span></div>
+              <div class="flag-chip"><span>🌍</span><span>Afrique</span></div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="about-text reveal">
-          <div class="badge">Qui sommes-nous</div>
-          <h2>Votre avenir est le nôtre, <em class="gradient-text">façonnons-le ensemble</em></h2>
-          <p class="lead">AnotherBOT est un acteur de référence de la transformation digitale, opérant sur 4 marchés internationaux avec une mission claire :</p>
-          <p>Faire de la technologie un levier concret de performance et d'innovation. Nous accompagnons les entreprises dans leur transition numérique grâce à une approche end-to-end : de la stratégie à l'implémentation, du conseil à la maintenance.</p>
-          <p>Notre ADN ? Des experts passionnés, des robots disponibles 24h/24 7j/7, et une conviction profonde que l'intelligence humaine et artificielle sont complémentaires — jamais opposées.</p>
+      <div class="about-text gsap-reveal">
+        <div class="badge">Qui sommes-nous</div>
+        <h2>Votre avenir est le nôtre,<br /><em class="gradient-text">façonnons-le ensemble</em></h2>
+        <p class="lead">AnotherBOT est un acteur de référence de la transformation digitale, opérant sur 4 marchés internationaux avec une mission claire :</p>
+        <p>Faire de la technologie un levier concret de performance et d'innovation. Nous accompagnons les entreprises dans leur transition numérique grâce à une approche end-to-end.</p>
+        <p>Notre ADN ? Des experts passionnés, des robots 24h/24, et la conviction que l'intelligence humaine et artificielle sont complémentaires.</p>
 
-          <div class="about-values">
-            <div class="value-item">
-              <span class="vi-icon">🎯</span>
-              <span class="vi-text">Excellence opérationnelle</span>
-            </div>
-            <div class="value-item">
-              <span class="vi-icon">🤝</span>
-              <span class="vi-text">Partenariat sur le long terme</span>
-            </div>
-            <div class="value-item">
-              <span class="vi-icon">⚡</span>
-              <span class="vi-text">Agilité & Innovation continue</span>
-            </div>
-            <div class="value-item">
-              <span class="vi-icon">🔒</span>
-              <span class="vi-text">Sécurité & Conformité</span>
-            </div>
-          </div>
+        <div class="values-grid">
+          <div class="value-chip"><span>🎯</span> Excellence opérationnelle</div>
+          <div class="value-chip"><span>🤝</span> Partenariat long terme</div>
+          <div class="value-chip"><span>⚡</span> Agilité & Innovation</div>
+          <div class="value-chip"><span>🔒</span> Sécurité & Conformité</div>
         </div>
       </div>
     </div>
@@ -269,25 +521,26 @@
   <!-- ============================================================
        STATS
   ============================================================ -->
-  <div class="stats-section">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item reveal">
-          <div class="stat-number" data-count="200" data-suffix="+">0+</div>
-          <div class="stat-label">Processus automatisés</div>
-        </div>
-        <div class="stat-item reveal">
-          <div class="stat-number" data-count="98" data-suffix="%">0%</div>
-          <div class="stat-label">Taux de satisfaction client</div>
-        </div>
-        <div class="stat-item reveal">
-          <div class="stat-number" data-count="24" data-suffix="/7">0/7</div>
-          <div class="stat-label">Robots opérationnels</div>
-        </div>
-        <div class="stat-item reveal">
-          <div class="stat-number" data-count="4" data-suffix=" pays">0 pays</div>
-          <div class="stat-label">Présence internationale</div>
-        </div>
+  <div class="stats-strip">
+    <div class="container stats-row">
+      <div class="stat-pill gsap-stat">
+        <div class="sp-num" data-count="200" data-suffix="+">0+</div>
+        <div class="sp-lbl">Processus automatisés</div>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-pill gsap-stat">
+        <div class="sp-num" data-count="98" data-suffix="%">0%</div>
+        <div class="sp-lbl">Satisfaction client</div>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-pill gsap-stat">
+        <div class="sp-num" data-count="24" data-suffix="/7">0/7</div>
+        <div class="sp-lbl">Robots opérationnels</div>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-pill gsap-stat">
+        <div class="sp-num" data-count="4" data-suffix=" pays">0 pays</div>
+        <div class="sp-lbl">Présence internationale</div>
       </div>
     </div>
   </div>
@@ -295,25 +548,24 @@
   <!-- ============================================================
        SERVICES
   ============================================================ -->
-  <section class="services" id="services">
-    <div class="grid-bg"></div>
+  <section class="services gsap-section" id="services">
+    <div class="services-bg-grid"></div>
     <div class="container">
-      <div class="section-header reveal">
+      <div class="section-header gsap-reveal">
         <div class="badge">Nos 4 Piliers</div>
-        <h2>Des solutions <em class="gradient-text">intelligentes</em> pour chaque défi</h2>
-        <p>Un portefeuille complet de compétences pour accompagner votre transformation digitale de bout en bout, avec une expertise reconnue et des résultats mesurables.</p>
+        <h2>Des solutions <em class="gradient-text">intelligentes</em><br />pour chaque défi</h2>
+        <p>Un portefeuille complet de compétences pour votre transformation digitale, de bout en bout.</p>
       </div>
 
       <div class="services-grid">
 
-        <!-- RPA — Featured -->
-        <div class="service-card featured reveal">
-          <div class="service-content">
-            <div class="service-icon-wrapper">⚙️</div>
-            <div class="service-number">Pilier 01</div>
+        <div class="svc-card svc-featured tilt-card gsap-reveal">
+          <div class="svc-content">
+            <div class="svc-icon">⚙️</div>
+            <div class="svc-num">Pilier 01</div>
             <h3>RPA & Automatisation Intelligente</h3>
-            <p>Déployez des robots logiciels capables d'exécuter 24h/24 7j/7 toutes les tâches répétitives à haute valeur, libérant ainsi vos équipes pour des activités à forte valeur ajoutée.</p>
-            <ul class="service-features">
+            <p>Déployez des robots logiciels capables d'exécuter 24h/24 toutes les tâches répétitives, libérant vos équipes pour des activités à forte valeur ajoutée.</p>
+            <ul class="svc-list">
               <li>Automatisation des processus métier complets</li>
               <li>Bots cognitifs avec lecture de documents</li>
               <li>Intégration ERP/CRM sans API</li>
@@ -321,88 +573,62 @@
               <li>ROI mesurable dès le premier mois</li>
             </ul>
           </div>
-          <div class="service-visual">
-            <div class="service-diagram">
-              <div class="diagram-node active">
-                <span class="dn-icon">📥</span>
-                <span>Capture</span>
-              </div>
-              <div class="diagram-node">
-                <span class="dn-icon">🔍</span>
-                <span>Analyse</span>
-              </div>
-              <div class="diagram-node">
-                <span class="dn-icon">⚙️</span>
-                <span>Process</span>
-              </div>
-              <div class="diagram-node">
-                <span class="dn-icon">🤖</span>
-                <span>Robot</span>
-              </div>
-              <div class="diagram-node">
-                <span class="dn-icon">✅</span>
-                <span>Valide</span>
-              </div>
-              <div class="diagram-node">
-                <span class="dn-icon">📊</span>
-                <span>Report</span>
-              </div>
-              <div class="diagram-node">
-                <span class="dn-icon">🔄</span>
-                <span>Boucle</span>
-              </div>
-              <div class="diagram-node">
-                <span class="dn-icon">📤</span>
-                <span>Export</span>
-              </div>
-              <div class="diagram-node">
-                <span class="dn-icon">💡</span>
-                <span>Insight</span>
-              </div>
+          <div class="svc-diagram-wrap">
+            <div class="svc-diagram">
+              <div class="diag-node active"><span>📥</span><span>Capture</span></div>
+              <div class="diag-node"><span>🔍</span><span>Analyse</span></div>
+              <div class="diag-node"><span>⚙️</span><span>Process</span></div>
+              <div class="diag-node"><span>🤖</span><span>Robot</span></div>
+              <div class="diag-node"><span>✅</span><span>Valide</span></div>
+              <div class="diag-node"><span>📊</span><span>Report</span></div>
+              <div class="diag-node"><span>🔄</span><span>Boucle</span></div>
+              <div class="diag-node"><span>📤</span><span>Export</span></div>
+              <div class="diag-node"><span>💡</span><span>Insight</span></div>
             </div>
           </div>
+          <div class="svc-glow"></div>
         </div>
 
-        <!-- IA -->
-        <div class="service-card reveal">
-          <div class="service-icon-wrapper">🧠</div>
-          <div class="service-number">Pilier 02</div>
+        <div class="svc-card tilt-card gsap-reveal">
+          <div class="svc-icon">🧠</div>
+          <div class="svc-num">Pilier 02</div>
           <h3>Intelligence Artificielle Décisionnelle</h3>
-          <p>Transformez vos données en avantage compétitif. Nos solutions d'IA prédictive et d'aide à la décision optimisent vos processus métier et anticipent les tendances.</p>
-          <ul class="service-features">
+          <p>Transformez vos données en avantage compétitif. IA prédictive et aide à la décision pour optimiser vos processus et anticiper les tendances.</p>
+          <ul class="svc-list">
             <li>Machine Learning & Deep Learning</li>
             <li>Analyse prédictive & prescriptive</li>
             <li>NLP & traitement du langage</li>
             <li>Computer Vision & OCR intelligent</li>
           </ul>
+          <div class="svc-glow"></div>
         </div>
 
-        <!-- Cloud -->
-        <div class="service-card reveal">
-          <div class="service-icon-wrapper">☁️</div>
-          <div class="service-number">Pilier 03</div>
+        <div class="svc-card tilt-card gsap-reveal">
+          <div class="svc-icon">☁️</div>
+          <div class="svc-num">Pilier 03</div>
           <h3>Cloud — Migration & Architecture</h3>
-          <p>Concevez une infrastructure agile, scalable et sécurisée. De la migration initiale à la gouvernance avancée, nous assurons votre excellence opérationnelle Cloud.</p>
-          <ul class="service-features">
+          <p>Infrastructure agile, scalable et sécurisée. De la migration initiale à la gouvernance avancée, excellence opérationnelle Cloud.</p>
+          <ul class="svc-list">
             <li>Migration Cloud multi-cloud (Azure/AWS/GCP)</li>
             <li>Architecture microservices & containers</li>
             <li>DevOps, CI/CD & Infrastructure as Code</li>
             <li>Gouvernance, sécurité & FinOps</li>
           </ul>
+          <div class="svc-glow"></div>
         </div>
 
-        <!-- Digital -->
-        <div class="service-card reveal">
-          <div class="service-icon-wrapper">💻</div>
-          <div class="service-number">Pilier 04</div>
+        <div class="svc-card tilt-card gsap-reveal">
+          <div class="svc-icon">💻</div>
+          <div class="svc-num">Pilier 04</div>
           <h3>Développement Digital Sur Mesure</h3>
-          <p>Concevons ensemble vos applications métier. De la stratégie UX à la mise en production, nos équipes livrent des solutions digitales performantes et pérennes.</p>
-          <ul class="service-features">
+          <p>Applications métier sur mesure. De la stratégie UX à la mise en production, des solutions digitales performantes et pérennes.</p>
+          <ul class="svc-list">
             <li>Applications web & mobile sur mesure</li>
             <li>Portails clients & back-offices</li>
             <li>Intégration API & systèmes d'information</li>
             <li>Maintenance évolutive & support</li>
           </ul>
+          <div class="svc-glow"></div>
         </div>
 
       </div>
@@ -412,44 +638,50 @@
   <!-- ============================================================
        WHY US
   ============================================================ -->
-  <section class="why-us" style="background:var(--bg-secondary);">
+  <section class="why-us gsap-section" id="why">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="section-header gsap-reveal">
         <div class="badge">Notre Différence</div>
         <h2>Pourquoi choisir <em class="gradient-text">AnotherBOT</em></h2>
         <p>Nous ne sommes pas qu'un prestataire — nous sommes votre partenaire stratégique dans la durée.</p>
       </div>
 
       <div class="why-grid">
-        <div class="why-card reveal">
-          <span class="why-icon">🎯</span>
+        <div class="why-card tilt-card gsap-reveal">
+          <div class="why-icon-wrap"><span>🎯</span></div>
           <h4>Approche End-to-End</h4>
-          <p>De l'audit initial à la maintenance en production, nous couvrons l'intégralité du cycle de vie de vos projets avec une responsabilité complète sur les résultats.</p>
+          <p>De l'audit initial à la maintenance en production, responsabilité complète sur les résultats.</p>
+          <div class="why-card-line"></div>
         </div>
-        <div class="why-card reveal">
-          <span class="why-icon">⚡</span>
+        <div class="why-card tilt-card gsap-reveal">
+          <div class="why-icon-wrap"><span>⚡</span></div>
           <h4>Agilité & Time-to-Market</h4>
-          <p>Des sprints courts, des livrables concrets et une communication transparente. Vos projets avancent vite, sans sacrifier la qualité.</p>
+          <p>Sprints courts, livrables concrets et communication transparente. Vos projets avancent vite.</p>
+          <div class="why-card-line"></div>
         </div>
-        <div class="why-card reveal">
-          <span class="why-icon">🌍</span>
+        <div class="why-card tilt-card gsap-reveal">
+          <div class="why-icon-wrap"><span>🌍</span></div>
           <h4>Expertise Internationale</h4>
-          <p>Présents en France, Canada, USA et Afrique, nous comprenons les spécificités réglementaires et culturelles de chaque marché.</p>
+          <p>France, Canada, USA et Afrique — nous comprenons chaque marché en profondeur.</p>
+          <div class="why-card-line"></div>
         </div>
-        <div class="why-card reveal">
-          <span class="why-icon">🤖</span>
+        <div class="why-card tilt-card gsap-reveal">
+          <div class="why-icon-wrap"><span>🤖</span></div>
           <h4>Robots 24/7</h4>
-          <p>Vos robots ne s'arrêtent jamais. Opérationnels la nuit, les week-ends et les jours fériés, ils maximisent votre productivité sans coût additionnel.</p>
+          <p>Opérationnels la nuit et les week-ends, ils maximisent votre productivité sans coût additionnel.</p>
+          <div class="why-card-line"></div>
         </div>
-        <div class="why-card reveal">
-          <span class="why-icon">📊</span>
+        <div class="why-card tilt-card gsap-reveal">
+          <div class="why-icon-wrap"><span>📊</span></div>
           <h4>ROI Mesurable</h4>
-          <p>Chaque projet est associé à des indicateurs de performance clairs. Nous mesurons, nous optimisons et nous vous rendons des comptes.</p>
+          <p>Indicateurs de performance clairs. Nous mesurons, optimisons et vous rendons des comptes.</p>
+          <div class="why-card-line"></div>
         </div>
-        <div class="why-card reveal">
-          <span class="why-icon">🔒</span>
+        <div class="why-card tilt-card gsap-reveal">
+          <div class="why-icon-wrap"><span>🔒</span></div>
           <h4>Sécurité & Conformité</h4>
-          <p>RGPD, ISO 27001, normes sectorielles — votre sécurité et votre conformité sont au cœur de chacune de nos architectures.</p>
+          <p>RGPD, ISO 27001, normes sectorielles — au cœur de chacune de nos architectures.</p>
+          <div class="why-card-line"></div>
         </div>
       </div>
     </div>
@@ -458,34 +690,43 @@
   <!-- ============================================================
        PROCESS
   ============================================================ -->
-  <section class="process">
+  <section class="process gsap-section" id="process">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="section-header gsap-reveal">
         <div class="badge">Notre Méthodologie</div>
         <h2>Un processus <em class="gradient-text">éprouvé</em></h2>
-        <p>Quatre étapes clés pour transformer vos ambitions en résultats concrets et durables.</p>
+        <p>Quatre étapes pour transformer vos ambitions en résultats concrets et durables.</p>
       </div>
 
-      <div class="process-steps">
-        <div class="process-step reveal">
-          <div class="step-number">01</div>
-          <h4>Audit & Cadrage</h4>
-          <p>Analyse de vos processus existants, identification des opportunités d'automatisation et définition de la roadmap stratégique.</p>
+      <div class="process-track">
+        <div class="process-connector">
+          <svg class="connector-svg" viewBox="0 0 900 4" preserveAspectRatio="none">
+            <line x1="0" y1="2" x2="900" y2="2" stroke="rgba(0,212,255,0.15)" stroke-width="1.5"/>
+            <line id="process-line" x1="0" y1="2" x2="0" y2="2" stroke="#00d4ff" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </div>
-        <div class="process-step reveal">
-          <div class="step-number">02</div>
-          <h4>Conception & Architecture</h4>
-          <p>Design de la solution, choix technologiques et conception de l'architecture cible adaptée à vos contraintes.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="step-number">03</div>
-          <h4>Développement & Tests</h4>
-          <p>Implémentation agile en sprints, tests unitaires et d'intégration, validation avec vos équipes métier.</p>
-        </div>
-        <div class="process-step reveal">
-          <div class="step-number">04</div>
-          <h4>Déploiement & Optimisation</h4>
-          <p>Mise en production sécurisée, formation des équipes et optimisation continue basée sur les données réelles.</p>
+
+        <div class="process-steps">
+          <div class="proc-step gsap-reveal">
+            <div class="proc-num">01</div>
+            <h4>Audit & Cadrage</h4>
+            <p>Analyse de vos processus, identification des opportunités et définition de la roadmap stratégique.</p>
+          </div>
+          <div class="proc-step gsap-reveal">
+            <div class="proc-num">02</div>
+            <h4>Conception & Architecture</h4>
+            <p>Design de la solution, choix technologiques et conception de l'architecture cible.</p>
+          </div>
+          <div class="proc-step gsap-reveal">
+            <div class="proc-num">03</div>
+            <h4>Développement & Tests</h4>
+            <p>Implémentation agile en sprints, tests unitaires et validation avec vos équipes métier.</p>
+          </div>
+          <div class="proc-step gsap-reveal">
+            <div class="proc-num">04</div>
+            <h4>Déploiement & Optimisation</h4>
+            <p>Mise en production sécurisée, formation des équipes et optimisation continue.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -494,38 +735,42 @@
   <!-- ============================================================
        MARKETS
   ============================================================ -->
-  <section class="markets" id="markets">
+  <section class="markets gsap-section" id="markets">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="section-header gsap-reveal">
         <div class="badge">Présence Mondiale</div>
         <h2>Nos marchés <em class="gradient-text">internationaux</em></h2>
-        <p>Ancrés localement, pensés globalement — AnotherBOT opère sur quatre continents avec une expertise terrain reconnue.</p>
+        <p>Ancrés localement, pensés globalement — AnotherBOT opère sur quatre continents.</p>
       </div>
 
       <div class="markets-grid">
-        <div class="market-card reveal">
-          <span class="market-flag">🇫🇷</span>
-          <div class="market-name">France</div>
-          <div class="market-desc">Hub principal. Siège social et centre d'excellence technologique avec des équipes spécialisées par vertical.</div>
-          <span class="market-badge">Siège Social</span>
+        <div class="mkt-card tilt-card gsap-reveal">
+          <div class="mkt-flag">🇫🇷</div>
+          <div class="mkt-name">France</div>
+          <p>Hub principal. Siège social et centre d'excellence technologique avec des équipes spécialisées.</p>
+          <span class="mkt-badge">Siège Social</span>
+          <div class="mkt-glow"></div>
         </div>
-        <div class="market-card reveal">
-          <span class="market-flag">🇨🇦</span>
-          <div class="market-name">Canada</div>
-          <div class="market-desc">Présence forte à Montréal et Toronto. Expertise IA et RPA pour les secteurs Finance, Assurance et Santé.</div>
-          <span class="market-badge">Bureau Actif</span>
+        <div class="mkt-card tilt-card gsap-reveal">
+          <div class="mkt-flag">🇨🇦</div>
+          <div class="mkt-name">Canada</div>
+          <p>Présence forte à Montréal et Toronto. Expertise IA et RPA pour Finance, Assurance et Santé.</p>
+          <span class="mkt-badge">Bureau Actif</span>
+          <div class="mkt-glow"></div>
         </div>
-        <div class="market-card reveal">
-          <span class="market-flag">🇺🇸</span>
-          <div class="market-name">États-Unis</div>
-          <div class="market-desc">Expansion sur la côte Est. Partenariats stratégiques avec des intégrateurs Microsoft et SAP certifiés.</div>
-          <span class="market-badge">En expansion</span>
+        <div class="mkt-card tilt-card gsap-reveal">
+          <div class="mkt-flag">🇺🇸</div>
+          <div class="mkt-name">États-Unis</div>
+          <p>Expansion sur la côte Est. Partenariats stratégiques avec des intégrateurs Microsoft et SAP certifiés.</p>
+          <span class="mkt-badge">En expansion</span>
+          <div class="mkt-glow"></div>
         </div>
-        <div class="market-card reveal">
-          <span class="market-flag">🌍</span>
-          <div class="market-name">Afrique</div>
-          <div class="market-desc">Maroc, Sénégal, Côte d'Ivoire — accompagnement de la transformation digitale des économies émergentes.</div>
-          <span class="market-badge">Partenaire stratégique</span>
+        <div class="mkt-card tilt-card gsap-reveal">
+          <div class="mkt-flag">🌍</div>
+          <div class="mkt-name">Afrique</div>
+          <p>Maroc, Sénégal, Côte d'Ivoire — accompagnement de la transformation digitale des économies émergentes.</p>
+          <span class="mkt-badge">Partenaire stratégique</span>
+          <div class="mkt-glow"></div>
         </div>
       </div>
     </div>
@@ -534,19 +779,18 @@
   <!-- ============================================================
        CTA STRIP
   ============================================================ -->
-  <div class="cta-strip">
-    <div class="container">
-      <div class="badge" style="justify-content:center;margin:0 auto 24px;">
-        Prêt à passer à l'action ?
-      </div>
+  <div class="cta-strip gsap-section">
+    <div class="cta-strip-bg"></div>
+    <div class="container cta-inner">
+      <div class="badge" style="justify-content:center;margin:0 auto 24px;">Prêt à passer à l'action ?</div>
       <h2>Votre <em class="gradient-text">transformation digitale</em><br />commence aujourd'hui</h2>
-      <p>Échangeons sur vos défis. En 45 minutes, nos experts identifient les 3 quick wins qui maximiseront votre ROI immédiatement.</p>
-      <div class="btn-group">
-        <a href="#contact" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          Démarrer gratuitement
+      <p>En 45 minutes, nos experts identifient les 3 quick wins qui maximiseront votre ROI immédiatement.</p>
+      <div class="cta-btns">
+        <a href="#contact" class="btn btn-primary magnetic-btn">
+          <span>Démarrer gratuitement</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="#services" class="btn btn-outline">Voir nos solutions</a>
+        <a href="#services" class="btn btn-ghost magnetic-btn"><span>Voir nos solutions</span></a>
       </div>
     </div>
   </div>
@@ -554,48 +798,46 @@
   <!-- ============================================================
        TEAM
   ============================================================ -->
-  <section class="team" id="team">
+  <section class="team gsap-section" id="team">
     <div class="container">
-      <div class="section-header reveal">
+      <div class="section-header gsap-reveal">
         <div class="badge">L'Équipe Dirigeante</div>
         <h2>Dirigé par des <em class="gradient-text">experts passionnés</em></h2>
-        <p>Une direction alliant vision stratégique et maîtrise technique pour vous accompagner au plus haut niveau.</p>
+        <p>Direction alliant vision stratégique et maîtrise technique au plus haut niveau.</p>
       </div>
 
       <div class="team-grid">
-
-        <div class="team-card reveal">
-          <div class="team-avatar">
-            <span class="team-avatar-text">AS</span>
+        <div class="team-card tilt-card gsap-reveal">
+          <div class="tc-avatar">
+            <span>AS</span>
+            <div class="tc-avatar-ring"></div>
           </div>
-          <div class="team-name">Abdellatif SAHLALI</div>
-          <div class="team-role">Président & CEO</div>
-          <p class="team-bio">
-            Visionnaire de la transformation digitale, Abdellatif pilote la stratégie globale d'AnotherBOT avec une expertise de plus de 15 ans dans l'automatisation et l'intelligence artificielle. Il est le moteur de l'expansion internationale du groupe sur 4 continents.
-          </p>
-          <div class="team-socials">
-            <a href="#" class="team-social-link" aria-label="LinkedIn">in</a>
-            <a href="#" class="team-social-link" aria-label="Twitter">𝕏</a>
-            <a href="mailto:contact@another-bot.com" class="team-social-link" aria-label="Email">@</a>
+          <div class="tc-name">Abdellatif SAHLALI</div>
+          <div class="tc-role">Président & CEO</div>
+          <p class="tc-bio">Visionnaire de la transformation digitale, Abdellatif pilote la stratégie globale d'AnotherBOT avec plus de 15 ans d'expertise en automatisation et intelligence artificielle sur 4 continents.</p>
+          <div class="tc-socials">
+            <a href="#" class="tc-social">in</a>
+            <a href="#" class="tc-social">𝕏</a>
+            <a href="mailto:contact@another-bot.com" class="tc-social">@</a>
           </div>
+          <div class="tc-glow"></div>
         </div>
 
-        <div class="team-card reveal">
-          <div class="team-avatar">
-            <span class="team-avatar-text">IS</span>
+        <div class="team-card tilt-card gsap-reveal">
+          <div class="tc-avatar">
+            <span>IS</span>
+            <div class="tc-avatar-ring"></div>
           </div>
-          <div class="team-name">Ilham SAHLALI</div>
-          <div class="team-role">Directrice Pôle RPA & AI</div>
-          <p class="team-bio">
-            Architecte des solutions RPA et IA d'AnotherBOT, Ilham dirige le pôle le plus stratégique de l'entreprise. Son expertise en automatisation cognitive et en déploiement de robots logiciels a transformé des dizaines d'entreprises à l'échelle internationale.
-          </p>
-          <div class="team-socials">
-            <a href="#" class="team-social-link" aria-label="LinkedIn">in</a>
-            <a href="#" class="team-social-link" aria-label="Twitter">𝕏</a>
-            <a href="mailto:contact@another-bot.com" class="team-social-link" aria-label="Email">@</a>
+          <div class="tc-name">Ilham SAHLALI</div>
+          <div class="tc-role">Directrice Pôle RPA & AI</div>
+          <p class="tc-bio">Architecte des solutions RPA et IA d'AnotherBOT, Ilham dirige le pôle le plus stratégique de l'entreprise. Son expertise en automatisation cognitive a transformé des dizaines d'entreprises à l'international.</p>
+          <div class="tc-socials">
+            <a href="#" class="tc-social">in</a>
+            <a href="#" class="tc-social">𝕏</a>
+            <a href="mailto:contact@another-bot.com" class="tc-social">@</a>
           </div>
+          <div class="tc-glow"></div>
         </div>
-
       </div>
     </div>
   </section>
@@ -603,77 +845,74 @@
   <!-- ============================================================
        CONTACT
   ============================================================ -->
-  <section class="contact" id="contact" style="background:var(--bg-secondary);">
-    <div class="grid-bg"></div>
-    <div class="container">
-      <div class="contact-grid">
+  <section class="contact gsap-section" id="contact">
+    <div class="services-bg-grid"></div>
+    <div class="container contact-grid">
 
-        <div class="contact-info reveal">
-          <div class="badge">Parlons-nous</div>
-          <h2>Transformons votre<br /><em class="gradient-text">vision en réalité</em></h2>
-          <p>Prêt à franchir le cap ? Notre équipe d'experts est disponible pour analyser votre contexte et vous proposer des solutions concrètes adaptées à votre secteur.</p>
+      <div class="contact-info gsap-reveal">
+        <div class="badge">Parlons-nous</div>
+        <h2>Transformons votre<br /><em class="gradient-text">vision en réalité</em></h2>
+        <p>Notre équipe d'experts est disponible pour analyser votre contexte et vous proposer des solutions concrètes.</p>
 
-          <div class="contact-details">
-            <div class="contact-item">
-              <div class="ci-icon">📧</div>
-              <div class="ci-text">
-                <div class="label">Email</div>
-                <div class="value">contact@another-bot.com</div>
-              </div>
+        <div class="contact-items">
+          <div class="ci-row">
+            <div class="ci-icon-wrap">📧</div>
+            <div>
+              <div class="ci-label">Email</div>
+              <div class="ci-val">contact@another-bot.com</div>
             </div>
-            <div class="contact-item">
-              <div class="ci-icon">📍</div>
-              <div class="ci-text">
-                <div class="label">Siège Social</div>
-                <div class="value">Paris, France</div>
-              </div>
+          </div>
+          <div class="ci-row">
+            <div class="ci-icon-wrap">📍</div>
+            <div>
+              <div class="ci-label">Siège Social</div>
+              <div class="ci-val">Paris, France</div>
             </div>
-            <div class="contact-item">
-              <div class="ci-icon">🌐</div>
-              <div class="ci-text">
-                <div class="label">Marchés</div>
-                <div class="value">France · Canada · USA · Afrique</div>
-              </div>
+          </div>
+          <div class="ci-row">
+            <div class="ci-icon-wrap">🌐</div>
+            <div>
+              <div class="ci-label">Marchés</div>
+              <div class="ci-val">France · Canada · USA · Afrique</div>
             </div>
-            <div class="contact-item">
-              <div class="ci-icon">⏰</div>
-              <div class="ci-text">
-                <div class="label">Disponibilité</div>
-                <div class="value">Lun–Ven · 9h–18h CET</div>
-              </div>
+          </div>
+          <div class="ci-row">
+            <div class="ci-icon-wrap">⏰</div>
+            <div>
+              <div class="ci-label">Disponibilité</div>
+              <div class="ci-val">Lun–Ven · 9h–18h CET</div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="contact-form-wrapper reveal">
-          <h3 class="form-title">Envoyez-nous un message</h3>
-          <p class="form-subtitle">Réponse garantie sous 24h ouvrées</p>
+      <div class="contact-form-wrap gsap-reveal">
+        <div class="form-inner">
+          <h3>Envoyez-nous un message</h3>
+          <p class="form-note">Réponse garantie sous 24h ouvrées</p>
 
-          <form class="contact-form" novalidate>
-            <div class="form-row">
-              <div class="form-group">
+          <form class="c-form" novalidate>
+            <div class="form-duo">
+              <div class="fg">
                 <label for="fname">Prénom</label>
-                <input type="text" id="fname" name="fname" placeholder="Jean" required />
+                <input type="text" id="fname" placeholder="Jean" required />
               </div>
-              <div class="form-group">
+              <div class="fg">
                 <label for="lname">Nom</label>
-                <input type="text" id="lname" name="lname" placeholder="Dupont" required />
+                <input type="text" id="lname" placeholder="Dupont" required />
               </div>
             </div>
-
-            <div class="form-group">
+            <div class="fg">
               <label for="email">Email professionnel</label>
-              <input type="email" id="email" name="email" placeholder="jean@entreprise.com" required />
+              <input type="email" id="email" placeholder="jean@entreprise.com" required />
             </div>
-
-            <div class="form-group">
+            <div class="fg">
               <label for="company">Entreprise</label>
-              <input type="text" id="company" name="company" placeholder="Nom de votre entreprise" />
+              <input type="text" id="company" placeholder="Nom de votre entreprise" />
             </div>
-
-            <div class="form-group">
+            <div class="fg">
               <label for="service">Service souhaité</label>
-              <select id="service" name="service">
+              <select id="service">
                 <option value="" disabled selected>Sélectionnez un service</option>
                 <option value="rpa">⚙️ RPA & Automatisation</option>
                 <option value="ai">🧠 Intelligence Artificielle</option>
@@ -683,19 +922,16 @@
                 <option value="autre">💬 Autre</option>
               </select>
             </div>
-
-            <div class="form-group">
+            <div class="fg">
               <label for="message">Votre message</label>
-              <textarea id="message" name="message" rows="4" placeholder="Décrivez votre projet, vos défis actuels et vos objectifs..."></textarea>
+              <textarea id="message" rows="4" placeholder="Décrivez votre projet et vos objectifs..."></textarea>
             </div>
-
-            <button type="submit" class="btn btn-primary form-submit">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
-              Envoyer le message
+            <button type="submit" class="btn btn-primary form-submit magnetic-btn">
+              <span>Envoyer le message</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
             </button>
           </form>
         </div>
-
       </div>
     </div>
   </section>
@@ -703,72 +939,71 @@
   <!-- ============================================================
        FOOTER
   ============================================================ -->
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-grid">
+  <footer class="footer">
+    <div class="footer-top-line"></div>
+    <div class="container footer-grid">
 
-        <div class="footer-brand">
-          <div class="logo-wrap">
-            <img src="https://another-bot.com/images/logoV4.png" alt="AnotherBOT" onerror="this.style.display='none'" />
-            <span class="brand-name">Another<span>BOT</span></span>
-          </div>
-          <p>Leader de la transformation digitale. Nous accompagnons les entreprises dans leur révolution numérique grâce à l'IA, l'automatisation et le Cloud.</p>
-          <div class="footer-socials">
-            <a href="#" class="footer-social" aria-label="LinkedIn">in</a>
-            <a href="#" class="footer-social" aria-label="Twitter">𝕏</a>
-            <a href="#" class="footer-social" aria-label="YouTube">▶</a>
-            <a href="#" class="footer-social" aria-label="GitHub">⌥</a>
-          </div>
+      <div class="footer-brand">
+        <div class="fb-logo">
+          <img src="https://another-bot.com/images/logoV4.png" alt="AnotherBOT" onerror="this.style.display='none'" />
+          <span>Another<em>BOT</em></span>
         </div>
-
-        <div class="footer-col">
-          <h5>Services</h5>
-          <ul class="footer-links">
-            <li><a href="#services">RPA & Automatisation</a></li>
-            <li><a href="#services">Intelligence Artificielle</a></li>
-            <li><a href="#services">Cloud & Migration</a></li>
-            <li><a href="#services">Développement Digital</a></li>
-            <li><a href="#services">Conseil Stratégique</a></li>
-          </ul>
+        <p>Leader de la transformation digitale. Nous accompagnons les entreprises dans leur révolution numérique grâce à l'IA, l'automatisation et le Cloud.</p>
+        <div class="footer-socials">
+          <a href="#" class="fs-link">in</a>
+          <a href="#" class="fs-link">𝕏</a>
+          <a href="#" class="fs-link">▶</a>
+          <a href="#" class="fs-link">⌥</a>
         </div>
-
-        <div class="footer-col">
-          <h5>Entreprise</h5>
-          <ul class="footer-links">
-            <li><a href="#about">À propos</a></li>
-            <li><a href="#team">Notre équipe</a></li>
-            <li><a href="#markets">Nos marchés</a></li>
-            <li><a href="#contact">Carrières</a></li>
-            <li><a href="#contact">Partenaires</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h5>Contact</h5>
-          <ul class="footer-links">
-            <li><a href="mailto:contact@another-bot.com">contact@another-bot.com</a></li>
-            <li><a href="#contact">Paris, France</a></li>
-            <li><a href="#contact">Montréal, Canada</a></li>
-            <li><a href="#contact">Formulaire de contact</a></li>
-          </ul>
-        </div>
-
       </div>
 
-      <div class="footer-bottom">
-        <p class="footer-copy">
-          © 2024 <span>AnotherBOT</span>. Tous droits réservés. — <em>"Humans for the Future"</em>
-        </p>
-        <div class="footer-bottom-links">
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">RPA & Automatisation</a></li>
+          <li><a href="#services">Intelligence Artificielle</a></li>
+          <li><a href="#services">Cloud & Migration</a></li>
+          <li><a href="#services">Développement Digital</a></li>
+          <li><a href="#services">Conseil Stratégique</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Entreprise</h5>
+        <ul>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#team">Notre équipe</a></li>
+          <li><a href="#markets">Nos marchés</a></li>
+          <li><a href="#contact">Carrières</a></li>
+          <li><a href="#contact">Partenaires</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:contact@another-bot.com">contact@another-bot.com</a></li>
+          <li><a href="#contact">Paris, France</a></li>
+          <li><a href="#contact">Montréal, Canada</a></li>
+          <li><a href="#contact">Formulaire de contact</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>© 2024 <span>AnotherBOT</span>. Tous droits réservés. — <em>"Humans for the Future"</em></p>
+        <div class="footer-legal">
           <a href="#">Mentions légales</a>
-          <a href="#">Politique de confidentialité</a>
+          <a href="#">Confidentialité</a>
           <a href="#">CGU</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Script -->
+  <!-- Main Script -->
   <script src="js/main.js"></script>
 </body>
 </html>
